@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<!-- Styles -->
+<style>
+    #chartdiv {
+        width: 100%;
+        height: 500px;
+    }
+</style>
+
+<body>
+    <!-- HTML -->
+    <div id="chartdiv"></div>
+
+    <!-- Resources -->
+    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+    <!-- Chart code -->
+    <script>
+        am4core.ready(function() {
+
+            // ------------------ Themes begin ------------------
+            am4core.useTheme(am4themes_animated);
+
+            // ------------------ Create chart instance ------------------
+            var chart = am4core.create("chartdiv", am4charts.XYChart);
+
+            // ------------------ Add data ------------------
+            chart.data = [{
+                "X": "Jan",
+                "Y": 3,
+                "Value": 1,
+            }, {
+                "X": "Jan",
+                "Y": 2,
+                "Value": 1,
+            }, {
+                "X": "Jan",
+                "Y": 1,
+                "Value": 1,
+            }, {
+                "X": "Feb",
+                "Y": 3,
+                "Value": 1,
+            }, {
+                "X": "Mar",
+                "Y2": 1,
+                "Value": 1,
+            }, {
+                "X": "Apr",
+                "Y2": 2,
+                "Value": 1,
+            }, {
+                "X": "May",
+                "Y": 8,
+                "Value": 1,
+            }, {
+                "X": "Jun",
+                "Y": 7,
+                "Value": 1,
+            }, {
+                "X": "Jul",
+                "Y2": 6,
+                "Value": 1,
+            }, {
+                "X": "Aug",
+                "Y2": 4,
+                "Value": 1,
+            }, {
+                "X": "Sep",
+                "Y": 2,
+                "Value": 1,
+            }, {
+                "X": "Oct",
+                "Y3": 1,
+                "Value": 1,
+            }, {
+                "X": "Nov",
+                "Y3": 3,
+                "Value": 1,
+            }, {
+                "X": "Dec",
+                "Y3": 5,
+                "Value": 1,
+            }];
+
+            // ------------------ Create axes ------------------
+            var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+            categoryAxis.dataFields.category = "X";
+            categoryAxis.renderer.grid.template.location = 0;
+            categoryAxis.renderer.minGridDistance = 20;
+            categoryAxis.tooltip.disabled = true;
+
+            var yAxis = chart.yAxes.push(new am4charts.ValueAxis());
+            yAxis.min = 0;
+            yAxis.max = 9;
+            yAxis.numberFormatter = new am4core.NumberFormatter();
+            yAxis.numberFormatter.numberFormat = "";
+
+            // ------------------ Create series1 ------------------
+            var series1 = chart.series.push(new am4charts.LineSeries());
+            series1.dataFields.valueY = "Y";
+            series1.dataFields.categoryX = "X";
+            series1.dataFields.value = "Value";
+            series1.strokeOpacity = 0;
+            series1.cursorTooltipEnabled = false;
+            series1.name = "Bubble1";
+
+            var bullet1 = series1.bullets.push(new am4charts.CircleBullet());
+            bullet1.tooltipText = "x:{valueX} y:{valueY}";
+            bullet1.circle.fill = am4core.color("#FFC107");
+            bullet1.strokeOpacity = 0;
+            series1.heatRules.push({
+                target: bullet1.circle,
+                min: 10,
+                max: 20,
+                property: "radius"
+            });
+
+            // Add label
+            var labelBullet = series1.bullets.push(new am4charts.LabelBullet());
+            labelBullet.label.text = "{valueY}";
+            labelBullet.locationY = 0.01;
+            labelBullet.label.verticalCenter = "middle";
+            labelBullet.label.horizontalCenter = "middle";
+            labelBullet.label.hideOversized = true;
+            labelBullet.fontSize = 30;
+            // labelBullet.label.fill = am4core.color('#ffffff')
+
+            // ------------------  Create series2 ------------------
+            var series2 = chart.series.push(new am4charts.LineSeries());
+            series2.dataFields.valueY = "Y2";
+            series2.dataFields.categoryX = "X";
+            series2.dataFields.value = "Value";
+            series2.strokeOpacity = 0;
+            series2.cursorTooltipEnabled = false;
+            series2.name = "Bubble2";
+
+            var bullet2 = series2.bullets.push(new am4charts.CircleBullet());
+            bullet2.tooltipText = "x:{valueX} y:{valueY}";
+            bullet2.circle.fill = am4core.color("#2196F3");
+            bullet2.strokeOpacity = 0;
+            series2.heatRules.push({
+                target: bullet2.circle,
+                min: 10,
+                max: 40,
+                property: "radius"
+            });
+
+            // Add label
+            var labelBullet2 = series2.bullets.push(new am4charts.LabelBullet());
+            labelBullet2.label.text = "{valueY}";
+            labelBullet2.locationY = 0.01;
+            labelBullet2.label.verticalCenter = "middle";
+            labelBullet2.label.horizontalCenter = "middle";
+            labelBullet2.label.hideOversized = true;
+            labelBullet2.fontSize = 30;
+            labelBullet2.label.fill = am4core.color('#ffffff')
+            // ------------------  Create series3 ------------------
+            var series3 = chart.series.push(new am4charts.LineSeries());
+            series3.dataFields.valueY = "Y3";
+            series3.dataFields.categoryX = "X";
+            series3.dataFields.value = "Value";
+            series3.strokeOpacity = 0;
+            series3.strokeWidth = 2;
+            series3.cursorTooltipEnabled = false;
+            series3.name = "Bubble3";
+
+            var bullet3 = series3.bullets.push(new am4charts.CircleBullet());
+            bullet3.tooltipText = "x:{valueX} y:{valueY}";
+            bullet3.circle.fill = am4core.color("#4CAF50");
+            bullet3.strokeOpacity = 0;
+            series3.heatRules.push({
+                target: bullet3.circle,
+                min: 10,
+                max: 30,
+                property: "radius"
+            });
+
+            // Add label
+            var labelBullet3 = series3.bullets.push(new am4charts.LabelBullet());
+            labelBullet3.label.text = "{valueY}";
+            labelBullet3.locationY = 0.01;
+            labelBullet3.label.verticalCenter = "middle";
+            labelBullet3.label.horizontalCenter = "middle";
+            labelBullet3.label.hideOversized = true;
+            labelBullet3.fontSize = 30;
+            labelBullet3.label.fill = am4core.color('#f1c232')
+
+            // ------------------ Add scrollbars ------------------
+            chart.scrollbarX = new am4core.Scrollbar();
+
+            // ------------------ Add cursor ------------------
+
+            // ------------------ Add legend ------------------
+            chart.legend = new am4charts.Legend();
+
+        });
+    </script>
+</body>
+
+</html>
