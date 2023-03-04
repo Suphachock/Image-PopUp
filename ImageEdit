@@ -1,0 +1,15 @@
+<div class="col-11 mx-auto">
+  <label for="formFile">Image Upload</label>
+  <input class="form-control" type="file" id="file2" accept=".png , .jpg , jpeg">
+  <img src="img/<?= $row['ImageNew'] ?>" width="100%" id="preImg" alt="">
+</div>
+
+-------------------------- JavaScript ----------------------------
+var file2 = document.getElementById('file2'); // Input File
+var preImg = document.getElementById('preImg'); // Preview Image
+file2.onchange = evt => {
+    const [file] = file2.files;
+    if (file) {
+        preImg.src = URL.createObjectURL(file);
+    }
+}
